@@ -15,7 +15,7 @@ python manage.py migrate
 python manage.py runserver
 6.The API is available at http://127.0.0.1:8000/api/. Test it with Postman or the browsable API in your browser.
 
-# Every request is logged in the terminal by RequestLoggingMiddleware, for example POST /api/reservations/ - 201 - 0.01s.
+ Every request is logged in the terminal by RequestLoggingMiddleware, for example POST /api/reservations/ - 201 - 0.01s.
 
 # Validation rules
 1.available_seats cannot exceed total_seats (events).
