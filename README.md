@@ -1,7 +1,7 @@
-# eventhub
+# eventhub:
 A backend API for a simplified event ticketing platform, built with Django, Django ORM and Django REST Framework. Users can browse events, reserve seats and cancel reservations.
 
-# How to run
+# How to run:
 1.Clone the repository and open the project folder.
 2.Create and activate a virtual environment:
 python -m venv .venv
@@ -17,13 +17,13 @@ python manage.py runserver
 
  Every request is logged in the terminal by RequestLoggingMiddleware, for example POST /api/reservations/ - 201 - 0.01s.
 
-# Validation rules
+# Validation rules:
 1.available_seats cannot exceed total_seats (events).
 2.At least 1 seat must be reserved.
 3.Seats can only be reserved for upcoming or ongoing events.
 4.A reservation cannot ask for more seats than are available (returns 400, for example Only 1 seat(s) available.).
 5. A reservation that is already cancelled cannot be cancelled again.
-# Project structure
+# Project structure:
 eventhub/
   manage.py
   requirements.txt
@@ -39,7 +39,7 @@ eventhub/
     middleware.py
     migrations/
 
-# Postman screenshots
+# Postman screenshots:
 
 successful reservation(201 created)
 
@@ -60,6 +60,6 @@ successful cancellation
 
 
 
-# Design decision
+# Design decision:
 I used a soft cancel: cancelling a reservation sets its status to cancelled and gives the seats back to the event, instead of deleting the reservation row. This keeps a full history of who booked and cancelled, lets the API reject a second cancel with a clear "Already cancelled" error, and means reservations_count on an event only counts confirmed reservations. Seat deduction on booking and seat restoration on cancel both happen next to the reservation write (in the serializer's create() and the cancel action), so the seat count and the reservation records change together. For production use with many concurrent users, I would wrap these in transaction.atomic() to prevent two people booking the last seat at the same time.
     
